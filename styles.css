@@ -151,18 +151,20 @@ header h1 {
 
 .grid-item {
     display: flex;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
-    padding: 0.75rem var(--spacing-sm);
+    padding: 0.6rem var(--spacing-sm);
     cursor: grab;
     transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     -webkit-user-select: none;
     user-select: none;
     -webkit-touch-callout: none;
     touch-action: pan-y;
+    min-height: 44px;
 }
 
 .grid-item:active {
@@ -220,9 +222,12 @@ header h1 {
 
 .grid-driver-info {
     flex: 1;
+    min-width: 0;
     display: flex;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: 0.5rem;
+    overflow: hidden;
 }
 
 .grid-driver-number {
@@ -238,17 +243,24 @@ header h1 {
     font-weight: 600;
     font-size: 0.95rem;
     color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
 }
 
 .grid-team-badge {
     display: inline-block;
     padding: 0.15rem 0.4rem;
     border-radius: 2px;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 700;
     text-transform: uppercase;
     margin-left: auto;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 /* Team Colors */
@@ -470,11 +482,17 @@ header h1 {
    =================================== */
 @media (max-width: 1024px) {
     .simulator-layout {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
     }
 
     .simulator-right {
-        position: static;
+        order: -1;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--color-bg-primary);
+        padding: var(--spacing-xs) 0;
     }
 
     .live-standings-card {
@@ -482,16 +500,25 @@ header h1 {
     }
 
     .contender-number {
-        font-size: 1.4rem;
-        min-width: 35px;
+        font-size: 1.2rem;
+        min-width: 30px;
     }
 
     .contender-name {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     .contender-points .points-value {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
+    }
+
+    .grid-driver-name {
+        font-size: 0.85rem;
+    }
+
+    .grid-team-badge {
+        font-size: 0.55rem;
+        padding: 0.1rem 0.3rem;
     }
 }
 
