@@ -14,7 +14,7 @@ An interactive race simulator that lets you explore the dramatic 2025 F1 season 
 
 ## 🚀 Live Site
 
-**[Try it here](https://kkartas.github.io/F1Calculator/)*
+**[Try it here](https://kkartas.github.io/F1Calculator/)**
 
 ## 📋 Championship Context
 
