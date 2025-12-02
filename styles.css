@@ -506,15 +506,16 @@ header h1 {
 
     .simulator-layout {
         grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+        gap: var(--spacing-sm);
     }
 
     .simulator-right {
+        order: -1;
         position: sticky;
         top: 0;
         z-index: 100;
         background: var(--color-bg-primary);
-        padding: var(--spacing-sm) 0;
+        padding: var(--spacing-xs) 0;
         margin: 0 calc(-1 * var(--spacing-md));
         padding-left: var(--spacing-md);
         padding-right: var(--spacing-md);
@@ -522,104 +523,151 @@ header h1 {
 
     .live-standings-card {
         display: flex;
-        flex-wrap: wrap;
-        gap: var(--spacing-xs);
-        padding: var(--spacing-sm);
+        flex-wrap: nowrap;
+        gap: 0.35rem;
+        padding: 0.5rem;
+        align-items: stretch;
     }
 
     .standings-title {
-        width: 100%;
-        margin-bottom: var(--spacing-xs);
-        padding-bottom: var(--spacing-xs);
-        font-size: 1rem;
+        display: none;
     }
 
     .contender-result {
         flex: 1;
-        min-width: 100px;
-        flex-direction: column;
-        gap: var(--spacing-xs);
-        padding: var(--spacing-xs);
+        min-width: 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.25rem;
+        padding: 0.4rem 0.5rem;
         margin-bottom: 0;
     }
 
     .contender-header {
-        flex-direction: column;
-        gap: 0.25rem;
+        flex-direction: row;
+        gap: 0.35rem;
+        align-items: center;
+        min-width: 0;
+        flex: 1;
     }
 
     .contender-number {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
         min-width: auto;
+        opacity: 0.4;
     }
 
     .contender-info {
-        align-items: center;
-        text-align: center;
+        align-items: flex-start;
+        text-align: left;
+        min-width: 0;
     }
 
     .contender-name {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 60px;
     }
 
     .contender-team {
-        font-size: 0.65rem;
+        display: none;
     }
 
     .contender-points {
-        align-items: center;
+        align-items: flex-end;
+        flex-shrink: 0;
+    }
+
+    .contender-points .points-label {
+        display: none;
     }
 
     .contender-points .points-value {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
 
     .championship-winner {
-        width: 100%;
-        margin-top: var(--spacing-xs);
-        padding: var(--spacing-xs);
+        display: none;
+    }
+
+    .championship-winner.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        width: auto;
+        flex-shrink: 0;
+        margin-top: 0;
+        padding: 0.4rem 0.6rem;
     }
 
     .winner-icon {
-        font-size: 1.5rem;
+        font-size: 1rem;
         margin-bottom: 0;
-        display: inline;
     }
 
     .winner-text {
-        font-size: 0.9rem;
-        display: inline;
+        font-size: 0.7rem;
+        white-space: nowrap;
     }
 }
 
 @media (max-width: 480px) {
     .grid-item {
         flex-direction: row;
+        flex-wrap: nowrap;
         text-align: left;
         padding: 0.5rem var(--spacing-xs);
+        gap: 0.5rem;
+        min-height: 44px;
+        align-items: center;
     }
 
     .grid-driver-info {
+        flex: 1;
+        min-width: 0;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 0.4rem;
+        overflow: hidden;
     }
 
     .grid-position {
-        font-size: 1rem;
-        min-width: 30px;
+        font-size: 0.9rem;
+        min-width: 28px;
+        flex-shrink: 0;
     }
 
     .grid-driver-number {
-        font-size: 0.9rem;
-        min-width: 25px;
+        font-size: 0.8rem;
+        min-width: 22px;
+        flex-shrink: 0;
     }
 
     .grid-driver-name {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        flex: 1;
+        min-width: 0;
     }
 
     .grid-team-badge {
-        font-size: 0.55rem;
-        padding: 0.1rem 0.3rem;
+        font-size: 0.5rem;
+        padding: 0.1rem 0.25rem;
+        flex-shrink: 0;
+        max-width: 55px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .contender-name {
+        max-width: 50px;
     }
 }
