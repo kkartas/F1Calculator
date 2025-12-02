@@ -404,6 +404,14 @@ header h1 {
     font-weight: 700;
 }
 
+.contender-name .full-name {
+    display: inline;
+}
+
+.contender-name .surname-only {
+    display: none;
+}
+
 .contender-team {
     font-size: 0.75rem;
     color: var(--color-text-muted);
@@ -553,6 +561,14 @@ header h1 {
     .contender-name {
         font-size: 0.85rem;
         white-space: nowrap;
+    }
+
+    .contender-name .full-name {
+        display: none;
+    }
+
+    .contender-name .surname-only {
+        display: inline;
     }
 
     .contender-team {
