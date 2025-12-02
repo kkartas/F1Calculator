@@ -9,28 +9,28 @@ const POINTS_SYSTEM = {
 
 const DRIVERS_DATA = [
     // Championship Contenders
-    { id: 'norris', name: 'Lando Norris', number: 4, team: 'McLaren', teamClass: 'mclaren', currentPoints: 408 },
-    { id: 'verstappen', name: 'Max Verstappen', number: 1, team: 'Red Bull', teamClass: 'redbull', currentPoints: 396 },
-    { id: 'piastri', name: 'Oscar Piastri', number: 81, team: 'McLaren', teamClass: 'mclaren', currentPoints: 392 },
+    { id: 'norris', name: 'Lando Norris', surname: 'Norris', number: 4, team: 'McLaren', teamClass: 'mclaren', currentPoints: 408 },
+    { id: 'verstappen', name: 'Max Verstappen', surname: 'Verstappen', number: 1, team: 'Red Bull', teamClass: 'redbull', currentPoints: 396 },
+    { id: 'piastri', name: 'Oscar Piastri', surname: 'Piastri', number: 81, team: 'McLaren', teamClass: 'mclaren', currentPoints: 392 },
 
     // Other Drivers (2025 Grid - Actual Lineup)
-    { id: 'leclerc', name: 'Charles Leclerc', number: 16, team: 'Ferrari', teamClass: 'ferrari' },
-    { id: 'sainz', name: 'Carlos Sainz', number: 55, team: 'Williams', teamClass: 'williams' },
-    { id: 'russell', name: 'George Russell', number: 63, team: 'Mercedes', teamClass: 'mercedes' },
-    { id: 'hamilton', name: 'Lewis Hamilton', number: 44, team: 'Ferrari', teamClass: 'ferrari' },
-    { id: 'alonso', name: 'Fernando Alonso', number: 14, team: 'Aston Martin', teamClass: 'aston' },
-    { id: 'tsunoda', name: 'Yuki Tsunoda', number: 22, team: 'Red Bull', teamClass: 'redbull' },
-    { id: 'gasly', name: 'Pierre Gasly', number: 10, team: 'Alpine', teamClass: 'alpine' },
-    { id: 'hulkenberg', name: 'Nico Hülkenberg', number: 27, team: 'Sauber', teamClass: 'sauber' },
-    { id: 'antonelli', name: 'Andrea Kimi Antonelli', number: 12, team: 'Mercedes', teamClass: 'mercedes' },
-    { id: 'stroll', name: 'Lance Stroll', number: 18, team: 'Aston Martin', teamClass: 'aston' },
-    { id: 'colapinto', name: 'Franco Colapinto', number: 43, team: 'Alpine', teamClass: 'alpine' },
-    { id: 'ocon', name: 'Esteban Ocon', number: 31, team: 'Haas', teamClass: 'haas' },
-    { id: 'albon', name: 'Alex Albon', number: 23, team: 'Williams', teamClass: 'williams' },
-    { id: 'lawson', name: 'Liam Lawson', number: 40, team: 'RB', teamClass: 'rb' },
-    { id: 'hadjar', name: 'Isack Hadjar', number: 6, team: 'RB', teamClass: 'rb' },
-    { id: 'bearman', name: 'Oliver Bearman', number: 87, team: 'Haas', teamClass: 'haas' },
-    { id: 'bortoleto', name: 'Gabriel Bortoleto', number: 5, team: 'Sauber', teamClass: 'sauber' },
+    { id: 'leclerc', name: 'Charles Leclerc', surname: 'Leclerc', number: 16, team: 'Ferrari', teamClass: 'ferrari' },
+    { id: 'sainz', name: 'Carlos Sainz', surname: 'Sainz', number: 55, team: 'Williams', teamClass: 'williams' },
+    { id: 'russell', name: 'George Russell', surname: 'Russell', number: 63, team: 'Mercedes', teamClass: 'mercedes' },
+    { id: 'hamilton', name: 'Lewis Hamilton', surname: 'Hamilton', number: 44, team: 'Ferrari', teamClass: 'ferrari' },
+    { id: 'alonso', name: 'Fernando Alonso', surname: 'Alonso', number: 14, team: 'Aston Martin', teamClass: 'aston' },
+    { id: 'tsunoda', name: 'Yuki Tsunoda', surname: 'Tsunoda', number: 22, team: 'Red Bull', teamClass: 'redbull' },
+    { id: 'gasly', name: 'Pierre Gasly', surname: 'Gasly', number: 10, team: 'Alpine', teamClass: 'alpine' },
+    { id: 'hulkenberg', name: 'Nico Hülkenberg', surname: 'Hülkenberg', number: 27, team: 'Sauber', teamClass: 'sauber' },
+    { id: 'antonelli', name: 'Andrea Kimi Antonelli', surname: 'Antonelli', number: 12, team: 'Mercedes', teamClass: 'mercedes' },
+    { id: 'stroll', name: 'Lance Stroll', surname: 'Stroll', number: 18, team: 'Aston Martin', teamClass: 'aston' },
+    { id: 'colapinto', name: 'Franco Colapinto', surname: 'Colapinto', number: 43, team: 'Alpine', teamClass: 'alpine' },
+    { id: 'ocon', name: 'Esteban Ocon', surname: 'Ocon', number: 31, team: 'Haas', teamClass: 'haas' },
+    { id: 'albon', name: 'Alex Albon', surname: 'Albon', number: 23, team: 'Williams', teamClass: 'williams' },
+    { id: 'lawson', name: 'Liam Lawson', surname: 'Lawson', number: 40, team: 'RB', teamClass: 'rb' },
+    { id: 'hadjar', name: 'Isack Hadjar', surname: 'Hadjar', number: 6, team: 'RB', teamClass: 'rb' },
+    { id: 'bearman', name: 'Oliver Bearman', surname: 'Bearman', number: 87, team: 'Haas', teamClass: 'haas' },
+    { id: 'bortoleto', name: 'Gabriel Bortoleto', surname: 'Bortoleto', number: 5, team: 'Sauber', teamClass: 'sauber' },
 ];
 
 // ===================================
@@ -74,7 +74,10 @@ function createGridItem(driver, position) {
         <div class="grid-position">P${position}</div>
         <div class="grid-driver-info">
             <div class="grid-driver-number">${driver.number}</div>
-            <div class="grid-driver-name">${driver.name}</div>
+            <div class="grid-driver-name">
+                <span class="full-name">${driver.name}</span>
+                <span class="surname-only">${driver.surname}</span>
+            </div>
             <div class="grid-team-badge team-${driver.teamClass}">${driver.team}</div>
         </div>
     `;
