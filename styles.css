@@ -55,12 +55,22 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
 body {
     font-family: var(--font-body);
     background: var(--color-bg-primary);
     color: var(--color-text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100%;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
 }
 
 .container {
@@ -431,12 +441,28 @@ header h1 {
    =================================== */
 @media (max-width: 1024px) {
     .simulator-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 
     .simulator-right {
         position: static;
-        order: -1;
+    }
+
+    .live-standings-card {
+        padding: var(--spacing-sm);
+    }
+
+    .contender-number {
+        font-size: 1.4rem;
+        min-width: 35px;
+    }
+
+    .contender-name {
+        font-size: 0.9rem;
+    }
+
+    .contender-points .points-value {
+        font-size: 1.4rem;
     }
 }
 
@@ -448,15 +474,123 @@ header h1 {
     .section-title {
         font-size: 1.5rem;
     }
+
+    .simulator-layout {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .simulator-right {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--color-bg-primary);
+        padding: var(--spacing-sm) 0;
+        margin: 0 calc(-1 * var(--spacing-md));
+        padding-left: var(--spacing-md);
+        padding-right: var(--spacing-md);
+    }
+
+    .live-standings-card {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+        padding: var(--spacing-sm);
+    }
+
+    .standings-title {
+        width: 100%;
+        margin-bottom: var(--spacing-xs);
+        padding-bottom: var(--spacing-xs);
+        font-size: 1rem;
+    }
+
+    .contender-result {
+        flex: 1;
+        min-width: 100px;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+        padding: var(--spacing-xs);
+        margin-bottom: 0;
+    }
+
+    .contender-header {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .contender-number {
+        font-size: 1.2rem;
+        min-width: auto;
+    }
+
+    .contender-info {
+        align-items: center;
+        text-align: center;
+    }
+
+    .contender-name {
+        font-size: 0.8rem;
+    }
+
+    .contender-team {
+        font-size: 0.65rem;
+    }
+
+    .contender-points {
+        align-items: center;
+    }
+
+    .contender-points .points-value {
+        font-size: 1.3rem;
+    }
+
+    .championship-winner {
+        width: 100%;
+        margin-top: var(--spacing-xs);
+        padding: var(--spacing-xs);
+    }
+
+    .winner-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0;
+        display: inline;
+    }
+
+    .winner-text {
+        font-size: 0.9rem;
+        display: inline;
+    }
 }
 
 @media (max-width: 480px) {
     .grid-item {
-        flex-direction: column;
-        text-align: center;
+        flex-direction: row;
+        text-align: left;
+        padding: 0.5rem var(--spacing-xs);
     }
 
     .grid-driver-info {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .grid-position {
+        font-size: 1rem;
+        min-width: 30px;
+    }
+
+    .grid-driver-number {
+        font-size: 0.9rem;
+        min-width: 25px;
+    }
+
+    .grid-driver-name {
+        font-size: 0.85rem;
+    }
+
+    .grid-team-badge {
+        font-size: 0.55rem;
+        padding: 0.1rem 0.3rem;
     }
 }
