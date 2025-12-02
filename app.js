@@ -264,9 +264,9 @@ function updateLiveStandings(norris, verstappen, piastri) {
         if (actualWinner) {
             championshipWinner.classList.add('show');
             if (isTieBreaker) {
-                winnerText.innerHTML = `${actualWinner.name} Wins! 🏆<br><span style="font-size: 0.8em; font-weight: normal;">(Tie-breaker: More 2nd Places)</span>`;
+                winnerText.innerHTML = `${actualWinner.name} is the World Champion! 🏆<br><span style="font-size: 0.8em; font-weight: normal;">(Tie-breaker: More 2nd Places)</span>`;
             } else {
-                winnerText.textContent = `${actualWinner.name} Wins! 🏆`;
+                winnerText.textContent = `${actualWinner.name} is the World Champion! 🏆`;
             }
         } else if (winners.length > 1) {
             // Tie between Max and Oscar (no Norris)
