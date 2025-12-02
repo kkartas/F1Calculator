@@ -1,0 +1,462 @@
+/* ===================================
+   CSS CUSTOM PROPERTIES (Design System)
+   =================================== */
+:root {
+    /* Colors - Premium Motorsport Palette */
+    --color-bg-primary: #0a0a0a;
+    --color-bg-secondary: #121212;
+    --color-bg-card: #1a1a1a;
+    --color-border: #333333;
+    --color-accent: #e10600;
+    /* F1 Red */
+
+    /* Team Colors */
+    --color-mclaren: #ff8700;
+    --color-redbull: #3671c6;
+    --color-ferrari: #e8002d;
+    --color-mercedes: #00d2be;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #e10600 0%, #8a0400 100%);
+    --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+
+    /* Text Colors */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #a0a0a0;
+    --color-text-muted: #666666;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+
+    /* Typography */
+    --font-heading: 'Rajdhani', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+
+    /* Shadows */
+    --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ===================================
+   GLOBAL STYLES
+   =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+/* ===================================
+   HEADER SECTION
+   =================================== */
+header {
+    padding: var(--spacing-xl) 0 var(--spacing-lg);
+    text-align: center;
+    background: linear-gradient(to bottom, var(--color-bg-secondary), var(--color-bg-primary));
+    border-bottom: 1px solid var(--color-border);
+}
+
+header h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: var(--spacing-xs);
+}
+
+.subtitle {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: var(--color-text-muted);
+    font-weight: 400;
+}
+
+/* ===================================
+   RACE SIMULATOR
+   =================================== */
+.race-simulator {
+    padding: var(--spacing-lg) 0 var(--spacing-2xl);
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: var(--spacing-xs);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-lg);
+    font-size: 0.9rem;
+}
+
+.simulator-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: var(--spacing-lg);
+    align-items: start;
+}
+
+.simulator-left {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+}
+
+.race-grid {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.grid-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem var(--spacing-sm);
+    cursor: grab;
+    transition: all 0.15s ease;
+}
+
+.grid-item:active {
+    cursor: grabbing;
+    background: #222;
+}
+
+.grid-item.dragging {
+    opacity: 0.4;
+    background: #000;
+    border-style: dashed;
+}
+
+.grid-item.drag-over {
+    border-color: var(--color-accent);
+    background: rgba(225, 6, 0, 0.05);
+}
+
+.grid-item:hover {
+    background: #252525;
+    border-color: #555;
+}
+
+.grid-position {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    min-width: 40px;
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+.grid-driver-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.grid-driver-number {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    min-width: 30px;
+    text-align: center;
+    color: var(--color-accent);
+}
+
+.grid-driver-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-text-primary);
+}
+
+.grid-team-badge {
+    display: inline-block;
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: auto;
+    letter-spacing: 0.5px;
+}
+
+/* Team Colors */
+.team-mclaren {
+    background: var(--color-mclaren);
+    color: #000;
+}
+
+.team-redbull {
+    background: var(--color-redbull);
+    color: #fff;
+}
+
+.team-ferrari {
+    background: var(--color-ferrari);
+    color: #fff;
+}
+
+.team-mercedes {
+    background: var(--color-mercedes);
+    color: #000;
+}
+
+.team-aston {
+    background: #006f62;
+    color: #fff;
+}
+
+.team-alpine {
+    background: #0090ff;
+    color: #fff;
+}
+
+.team-williams {
+    background: #005aff;
+    color: #fff;
+}
+
+.team-haas {
+    background: #ffffff;
+    color: #000;
+}
+
+.team-rb {
+    background: #6692ff;
+    color: #fff;
+}
+
+.team-sauber {
+    background: #52e252;
+    color: #000;
+}
+
+/* Contender Highlight */
+.grid-item.contender {
+    border-left: 3px solid var(--color-accent);
+    background: linear-gradient(90deg, rgba(225, 6, 0, 0.05) 0%, transparent 100%);
+}
+
+/* ===================================
+   LIVE CHAMPIONSHIP STANDINGS
+   =================================== */
+.simulator-right {
+    position: sticky;
+    top: var(--spacing-lg);
+}
+
+.live-standings-card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+}
+
+.standings-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    text-align: left;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-sm);
+    color: var(--color-text-secondary);
+}
+
+.contender-result {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.contender-result:hover {
+    border-color: #555;
+}
+
+.contender-result.champion {
+    border-color: var(--color-accent);
+    background: linear-gradient(90deg, rgba(225, 6, 0, 0.1) 0%, var(--color-bg-card) 100%);
+}
+
+.contender-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.contender-number {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.15);
+    min-width: 45px;
+    text-align: center;
+}
+
+.contender-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.contender-name {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.contender-team {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.contender-points {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.contender-points .points-label {
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contender-points .points-value {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.championship-winner {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--gradient-gold);
+    border-radius: var(--radius-sm);
+    text-align: center;
+    display: none;
+}
+
+.championship-winner.show {
+    display: block;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.winner-icon {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.winner-text {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #000;
+}
+
+/* ===================================
+   FOOTER
+   =================================== */
+.footer {
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.footer-note {
+    margin-top: var(--spacing-xs);
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+/* ===================================
+   ANIMATIONS
+   =================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 1024px) {
+    .simulator-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .simulator-right {
+        position: static;
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: var(--spacing-lg) 0;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .grid-driver-info {
+        flex-direction: column;
+    }
+}
