@@ -506,8 +506,9 @@ header h1 {
     }
 
     .live-standings-card {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto auto;
         gap: 0.5rem;
         padding: var(--spacing-sm);
     }
@@ -517,14 +518,16 @@ header h1 {
     }
 
     .contender-result {
-        flex: 1 1 auto;
-        min-width: 100px;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         gap: 0.5rem;
         padding: 0.5rem 0.75rem;
         margin-bottom: 0;
+    }
+
+    .championship-winner {
+        grid-column: 1 / -1;
     }
 
     .contender-header {
@@ -578,8 +581,6 @@ header h1 {
         align-items: center;
         justify-content: center;
         gap: 0.35rem;
-        width: 100%;
-        flex-basis: 100%;
         margin-top: 0;
         padding: 0.5rem 0.75rem;
     }
@@ -625,8 +626,11 @@ header h1 {
     }
 
     .contender-result {
-        padding: 0.4rem 0.6rem;
-        min-width: 90px;
+        padding: 0.4rem 0.5rem;
+    }
+
+    .contender-number {
+        display: none;
     }
 
     .contender-name {
@@ -634,7 +638,7 @@ header h1 {
     }
 
     .contender-points .points-value {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .championship-winner.show {
@@ -642,7 +646,11 @@ header h1 {
     }
 
     .winner-text {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    .winner-icon {
+        font-size: 1rem;
     }
 }
 
