@@ -79,13 +79,16 @@ function createGridItem(driver, position) {
         </div>
     `;
 
-    // Drag and Drop Events
+    // Drag and Drop Events (Desktop)
     item.addEventListener('dragstart', handleDragStart);
     item.addEventListener('dragover', handleDragOver);
     item.addEventListener('drop', handleDrop);
     item.addEventListener('dragend', handleDragEnd);
     item.addEventListener('dragenter', handleDragEnter);
     item.addEventListener('dragleave', handleDragLeave);
+    
+    // Touch Events (Mobile)
+    initTouchEvents(item);
 
     return item;
 }
@@ -274,6 +277,194 @@ function updateLiveStandings(norris, verstappen, piastri) {
 // TOUCH SUPPORT FOR MOBILE
 // ===================================
 
-document.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-}, { passive: false });
+let touchDragElement = null;
+let touchClone = null;
+let touchStartY = 0;
+let touchStartX = 0;
+let touchStartTime = 0;
+let isDragging = false;
+let dragThreshold = 10; // pixels to move before drag starts
+let holdTimeout = null;
+let currentDropTarget = null;
+let originalIndex = -1;
+
+// Initialize touch events on grid items
+function initTouchEvents(item) {
+    item.addEventListener('touchstart', handleTouchStart, { passive: false });
+    item.addEventListener('touchmove', handleTouchMove, { passive: false });
+    item.addEventListener('touchend', handleTouchEnd, { passive: false });
+    item.addEventListener('touchcancel', handleTouchCancel, { passive: false });
+}
+
+function handleTouchStart(e) {
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    touchStartTime = Date.now();
+    touchDragElement = this;
+    originalIndex = Array.from(this.parentNode.children).indexOf(this);
+    
+    // Start hold detection - 150ms for quick response
+    holdTimeout = setTimeout(() => {
+        startDragging(touch);
+    }, 150);
+}
+
+function startDragging(touch) {
+    if (!touchDragElement) return;
+    
+    isDragging = true;
+    
+    // Add dragging class to original
+    touchDragElement.classList.add('dragging');
+    
+    // Create floating clone
+    touchClone = touchDragElement.cloneNode(true);
+    touchClone.classList.add('touch-dragging-clone');
+    touchClone.style.position = 'fixed';
+    touchClone.style.zIndex = '10000';
+    touchClone.style.pointerEvents = 'none';
+    touchClone.style.width = touchDragElement.offsetWidth + 'px';
+    touchClone.style.left = (touch.clientX - touchDragElement.offsetWidth / 2) + 'px';
+    touchClone.style.top = (touch.clientY - 30) + 'px';
+    touchClone.style.transform = 'scale(1.05) rotate(2deg)';
+    touchClone.style.boxShadow = '0 10px 40px rgba(225, 6, 0, 0.4)';
+    touchClone.style.opacity = '0.95';
+    touchClone.style.transition = 'transform 0.1s ease, box-shadow 0.1s ease';
+    document.body.appendChild(touchClone);
+    
+    // Haptic feedback if available
+    if (navigator.vibrate) {
+        navigator.vibrate(50);
+    }
+}
+
+function handleTouchMove(e) {
+    if (!touchDragElement) return;
+    
+    const touch = e.touches[0];
+    const deltaX = Math.abs(touch.clientX - touchStartX);
+    const deltaY = Math.abs(touch.clientY - touchStartY);
+    
+    // If moved before hold timeout, cancel drag and allow scroll
+    if (!isDragging && (deltaX > dragThreshold || deltaY > dragThreshold)) {
+        clearTimeout(holdTimeout);
+        touchDragElement = null;
+        return; // Allow default scroll
+    }
+    
+    // If dragging, prevent scroll and move clone
+    if (isDragging) {
+        e.preventDefault();
+        
+        if (touchClone) {
+            touchClone.style.left = (touch.clientX - touchDragElement.offsetWidth / 2) + 'px';
+            touchClone.style.top = (touch.clientY - 30) + 'px';
+        }
+        
+        // Find drop target
+        const elementsUnder = document.elementsFromPoint(touch.clientX, touch.clientY);
+        const dropTarget = elementsUnder.find(el => 
+            el.classList.contains('grid-item') && el !== touchDragElement
+        );
+        
+        // Update drop target highlighting
+        if (currentDropTarget && currentDropTarget !== dropTarget) {
+            currentDropTarget.classList.remove('drag-over');
+            currentDropTarget.style.transform = '';
+        }
+        
+        if (dropTarget && dropTarget !== currentDropTarget) {
+            dropTarget.classList.add('drag-over');
+            
+            // Create insertion effect
+            const dropIndex = Array.from(dropTarget.parentNode.children).indexOf(dropTarget);
+            const items = document.querySelectorAll('.grid-item');
+            
+            items.forEach((item, idx) => {
+                if (item === touchDragElement) return;
+                if (item === dropTarget) {
+                    // Show where the item will be inserted
+                    if (dropIndex > originalIndex) {
+                        item.style.transform = 'translateY(-4px)';
+                    } else {
+                        item.style.transform = 'translateY(4px)';
+                    }
+                } else {
+                    item.style.transform = '';
+                }
+            });
+            
+            // Light haptic on target change
+            if (navigator.vibrate) {
+                navigator.vibrate(20);
+            }
+        }
+        
+        currentDropTarget = dropTarget;
+    }
+}
+
+function handleTouchEnd(e) {
+    clearTimeout(holdTimeout);
+    
+    if (isDragging && touchDragElement && currentDropTarget) {
+        e.preventDefault();
+        
+        // Get indices
+        const draggedIndex = Array.from(touchDragElement.parentNode.children).indexOf(touchDragElement);
+        const targetIndex = Array.from(currentDropTarget.parentNode.children).indexOf(currentDropTarget);
+        
+        // Move item in data
+        const [movedDriver] = racePositions.splice(draggedIndex, 1);
+        racePositions.splice(targetIndex, 0, movedDriver);
+        
+        // Haptic feedback for drop
+        if (navigator.vibrate) {
+            navigator.vibrate([30, 50, 30]);
+        }
+        
+        // Re-render grid
+        initRaceGrid();
+        calculateChampionship();
+    }
+    
+    cleanupDrag();
+}
+
+function handleTouchCancel(e) {
+    clearTimeout(holdTimeout);
+    cleanupDrag();
+}
+
+function cleanupDrag() {
+    // Remove clone
+    if (touchClone && touchClone.parentNode) {
+        touchClone.style.transition = 'all 0.2s ease';
+        touchClone.style.opacity = '0';
+        touchClone.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+            if (touchClone && touchClone.parentNode) {
+                touchClone.parentNode.removeChild(touchClone);
+            }
+            touchClone = null;
+        }, 200);
+    }
+    
+    // Remove dragging class
+    if (touchDragElement) {
+        touchDragElement.classList.remove('dragging');
+    }
+    
+    // Remove all drag-over classes and transforms
+    document.querySelectorAll('.grid-item').forEach(item => {
+        item.classList.remove('drag-over');
+        item.style.transform = '';
+    });
+    
+    // Reset state
+    touchDragElement = null;
+    isDragging = false;
+    currentDropTarget = null;
+    originalIndex = -1;
+}
